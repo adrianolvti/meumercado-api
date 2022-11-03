@@ -42,6 +42,7 @@ public class TypeService {
         return this.save(typeModel);
     }
 
+    @Transactional
     public String delete(UUID id) {
         Optional<TypeModel> typeModelOptional = this.findById(id);
 
@@ -56,14 +57,5 @@ public class TypeService {
 
     public boolean existsByName(String name) {
         return typeRepository.existsByName(name);
-    }
-
-    public boolean existsType(UUID id) {
-        Optional<TypeModel> typeModelOptional = this.findById(id);
-        if (!typeModelOptional.isPresent()) {
-            return false;
-        }
-
-        return true;
     }
 }

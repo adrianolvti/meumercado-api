@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class TypeDto {
     
-    @NotBlank(message = "Não deve ser nulo, vazio ou em branco")
+    @NotBlank(message = "Cannot be null, empty or blank")
     @Size(max = 70)
     private String name;
 }
