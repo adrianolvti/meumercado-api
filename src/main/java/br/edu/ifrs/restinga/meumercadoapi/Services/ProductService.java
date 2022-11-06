@@ -54,4 +54,25 @@ public class ProductService {
         productRepository.delete(productModelOptional.get());
         return productName;
     }
+
+    public boolean existsByCode(ProductDto productDto) {
+
+        var productModel = new ProductModel();
+        BeanUtils.copyProperties(productDto, productModel);
+
+        if (productRepository.existsByCode(productModel.getCode())) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public List<ProductModel> findByNameContaining(String name) {
+        return productRepository.findByNameContaining(name);
+    }
+
+    public List<ProductModel> findByTypeNameContaining(String name) {
+        
+        return productRepository.findByTypeNameContaining(name);
+    }
 }

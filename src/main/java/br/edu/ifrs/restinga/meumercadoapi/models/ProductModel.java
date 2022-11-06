@@ -25,6 +25,9 @@ public class ProductModel implements Serializable {
     @Column(columnDefinition = "uuid", length = 36)
     private UUID id;
 
+    @Column(unique = true, nullable = false, length = 3)
+    private Integer code;
+
     @Column(nullable = false, length = 70)
     private String name;
 

@@ -36,6 +36,10 @@ public class ProductController {
     public ResponseEntity<Object> saveProduct(@RequestBody @Valid ProductDto productDto) {
         var productModel = new ProductModel();
         BeanUtils.copyProperties(productDto, productModel);
+        
+        if (productService.existsByCode(productDto)) {
+            return  ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("Code already exists.");
+        }
 
         return ResponseEntity.status(HttpStatus.CREATED).body(productService.save(productModel));
     }
@@ -76,5 +80,15 @@ public class ProductController {
         }
 
         return ResponseEntity.status(HttpStatus.OK).body("Successfully deleted " + deletedProduct + " product.");
+    }
+
+    @GetMapping({"/serach-by-name/{name}"})
+    public ResponseEntity<List<ProductModel>> findByName(@PathVariable(value = "name") String name) {
+        return ResponseEntity.status(HttpStatus.OK).body(productService.findByNameContaining(name));
+    }
+
+    @GetMapping({"/serach-by-type/{type}"})
+    public ResponseEntity<List<ProductModel>> findByType(@PathVariable(value = "type") String type) {
+        return ResponseEntity.status(HttpStatus.OK).body(productService.findByTypeNameContaining(type));
     }
 }
