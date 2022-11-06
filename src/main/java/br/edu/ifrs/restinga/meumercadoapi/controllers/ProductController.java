@@ -82,12 +82,12 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.OK).body("Successfully deleted " + deletedProduct + " product.");
     }
 
-    @GetMapping({"/serach-by-name/{name}"})
+    @GetMapping({"/search-by-name/{name}"})
     public ResponseEntity<List<ProductModel>> findByName(@PathVariable(value = "name") String name) {
         return ResponseEntity.status(HttpStatus.OK).body(productService.findByNameContaining(name));
     }
 
-    @GetMapping({"/serach-by-type/{type}"})
+    @GetMapping({"/search-by-type/{type}"})
     public ResponseEntity<List<ProductModel>> findByType(@PathVariable(value = "type") String type) {
         return ResponseEntity.status(HttpStatus.OK).body(productService.findByTypeNameContaining(type));
     }
