@@ -2,7 +2,6 @@ package br.edu.ifrs.restinga.meumercadoapi.Services;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import javax.transaction.Transactional;
 
@@ -29,7 +28,7 @@ public class TypeService {
         return typeRepository.findAll();
     }
 
-    public Optional<TypeModel> findById(UUID id) {
+    public Optional<TypeModel> findById(Long id) {
         return typeRepository.findById(id);
     }
 
@@ -43,7 +42,7 @@ public class TypeService {
     }
 
     @Transactional
-    public String delete(UUID id) {
+    public String delete(Long id) {
         Optional<TypeModel> typeModelOptional = this.findById(id);
 
         if (!typeModelOptional.isPresent()) {

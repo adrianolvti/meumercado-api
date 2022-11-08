@@ -2,7 +2,6 @@ package br.edu.ifrs.restinga.meumercadoapi.Services;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import javax.transaction.Transactional;
 
@@ -29,7 +28,7 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public Optional<ProductModel> findById(UUID id) {
+    public Optional<ProductModel> findById(Long id) {
         return productRepository.findById(id);
     }
 
@@ -43,7 +42,7 @@ public class ProductService {
     }
 
     @Transactional
-    public String delete(UUID id) {
+    public String delete(Long id) {
         Optional<ProductModel> productModelOptional = this.findById(id);
 
         if (!productModelOptional.isPresent()) {
@@ -53,18 +52,6 @@ public class ProductService {
         String productName = productModelOptional.get().getName();
         productRepository.delete(productModelOptional.get());
         return productName;
-    }
-
-    public boolean existsByCode(ProductDto productDto) {
-
-        var productModel = new ProductModel();
-        BeanUtils.copyProperties(productDto, productModel);
-
-        if (productRepository.existsByCode(productModel.getCode())) {
-            return true;
-        }
-
-        return false;
     }
 
     public List<ProductModel> findByNameContaining(String name) {

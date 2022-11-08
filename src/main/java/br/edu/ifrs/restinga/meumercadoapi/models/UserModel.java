@@ -1,8 +1,5 @@
 package br.edu.ifrs.restinga.meumercadoapi.models;
 
-import java.io.Serializable;
-import java.util.UUID;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,14 +12,12 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "users")
-public class UserModel implements Serializable{
-
-    private static final long serialVersionUID = 1L;
+public class UserModel {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(columnDefinition = "uuid", length = 36)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(length = 36)
+    private Long id;
 
     @Column(nullable = false, length = 70)
     private String name;
@@ -35,4 +30,7 @@ public class UserModel implements Serializable{
 
     @Column(nullable = false, length = 10)
     private String password;
+
+    @Column(columnDefinition = "boolean default false")
+    private boolean isLoged;
 }

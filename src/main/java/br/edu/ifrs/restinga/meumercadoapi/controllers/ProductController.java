@@ -2,7 +2,6 @@ package br.edu.ifrs.restinga.meumercadoapi.controllers;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import javax.validation.Valid;
 
@@ -36,10 +35,6 @@ public class ProductController {
     public ResponseEntity<Object> saveProduct(@RequestBody @Valid ProductDto productDto) {
         var productModel = new ProductModel();
         BeanUtils.copyProperties(productDto, productModel);
-        
-        if (productService.existsByCode(productDto)) {
-            return  ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("Code already exists.");
-        }
 
         return ResponseEntity.status(HttpStatus.CREATED).body(productService.save(productModel));
     }
@@ -50,7 +45,7 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getOneProduct(@PathVariable(value = "id") UUID id) {
+    public ResponseEntity<Object> getOneProduct(@PathVariable(value = "id") Long id) {
         Optional<ProductModel> productModelOptional = productService.findById(id);
 
         if (!productModelOptional.isPresent()) {
@@ -61,7 +56,7 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> updateProduct(@PathVariable(value = "id") UUID id, @RequestBody @Valid ProductDto productDto) {
+    public ResponseEntity<Object> updateProduct(@PathVariable(value = "id") Long id, @RequestBody @Valid ProductDto productDto) {
         Optional<ProductModel> productModelOptional = productService.findById(id);
 
         if (!productModelOptional.isPresent()) {
@@ -72,7 +67,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteProduct(@PathVariable(value = "id") UUID id) {
+    public ResponseEntity<String> deleteProduct(@PathVariable(value = "id") Long id) {
         String deletedProduct = productService.delete(id);
 
         if (deletedProduct.isBlank()) {

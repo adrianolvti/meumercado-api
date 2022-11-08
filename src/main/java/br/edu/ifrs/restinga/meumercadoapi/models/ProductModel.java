@@ -1,8 +1,5 @@
 package br.edu.ifrs.restinga.meumercadoapi.models;
 
-import java.io.Serializable;
-import java.util.UUID;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,17 +13,12 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "products")
-public class ProductModel implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-
+public class ProductModel {
+    
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(columnDefinition = "uuid", length = 36)
-    private UUID id;
-
-    @Column(unique = true, nullable = false, length = 3)
-    private Integer code;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(length = 36)
+    private Long id;
 
     @Column(nullable = false, length = 70)
     private String name;

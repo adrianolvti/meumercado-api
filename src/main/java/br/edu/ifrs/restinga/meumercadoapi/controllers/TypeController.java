@@ -2,7 +2,6 @@ package br.edu.ifrs.restinga.meumercadoapi.controllers;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import javax.validation.Valid;
 
@@ -51,7 +50,7 @@ public class TypeController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getOneType(@PathVariable(value = "id") UUID id) {
+    public ResponseEntity<Object> getOneType(@PathVariable(value = "id") Long id) {
         Optional<TypeModel> typeModelOptional = typeService.findById(id);
 
         if (!typeModelOptional.isPresent()) {
@@ -62,7 +61,7 @@ public class TypeController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> updateTye(@PathVariable(value = "id") UUID id, @RequestBody @Valid TypeDto typeDto) {
+    public ResponseEntity<Object> updateTye(@PathVariable(value = "id") Long id, @RequestBody @Valid TypeDto typeDto) {
         Optional<TypeModel> typeModelOptional = typeService.findById(id);
 
         if (!typeModelOptional.isPresent()) {
@@ -73,7 +72,7 @@ public class TypeController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteType(@PathVariable(value = "id") UUID id) {
+    public ResponseEntity<String> deleteType(@PathVariable(value = "id") Long id) {
         String deletedType = typeService.delete(id);
 
         if (deletedType.isBlank()) {
